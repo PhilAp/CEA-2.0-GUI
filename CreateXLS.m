@@ -14,7 +14,7 @@ end
 %# delete existing file
 if val == 2 
         %# output file name
-        fName = fullfile(pwd, 'file.xls');
+        fName = fullfile(pwd, 'CEAdata.xls');
 
         %# create Excel COM Server
         Excel = actxserver('Excel.Application');
@@ -36,8 +36,11 @@ col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val
 for i = 1:10
     row_header(i,1) = {sprintf('%s_%d', 'trial', i)};
 end
-xlswrite('file.xls',col_header,'Sheet1','B1');     %Write column header
-xlswrite('file.xls',row_header,'Sheet1','A2');      %Write row header
-
+xlswrite('CEAdata.xls',col_header,'Sheet1','B1');     %Write column header
+xlswrite('CEAdata.xls',row_header,'Sheet1','A2');      %Write row header
 %# close Excel
-%Excel.Quit();
+Excel.Quit();
+winopen('CEAdata.xls')
+if val == 2 
+    f = msgbox('Document created under name "CEAdata"');
+end
