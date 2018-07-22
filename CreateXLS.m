@@ -3,7 +3,7 @@ fName = fullfile(pwd, 'file.xls');
 
 %# create Excel COM Server
 Excel = actxserver('Excel.Application');
-Excel.Visible = true;
+Excel.Visible = false;
 
 %# delete existing file
 if exist(fName, 'file'), delete(fName); end
@@ -17,11 +17,8 @@ wb.SaveAs(fName,1);
 wb.Close(false);
 
 data=ones(10,4);      %Sample 2-dimensional data
-col_header={'Oxidizer','Pressure','X','Y'};     %Row cell array (for column labels)
-row_header(1:10,1)={'Time'};     %Column cell array (for row labels)
-xlswrite('file.xls',data,'Sheet1','B2');     %Write data
-xlswrite('file.xls',col_header,'Sheet1','B1');     %Write column header
-xlswrite('file.xls',row_header,'Sheet1','A2');      %Write row header
+col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val', 'reactant_amount_unit', 'reactant_temp_unit', 'fuel_name', 'fuel_amount, fuel_temp', 'oxid_name', 'oxid_amount', 'oxid_temp', 'output'};     %Row cell array (for column labels)
+xlswrite('file.xls',col_header,'Sheet1','A1');     %Write column header
 
 %# close Excel
 Excel.Quit();
