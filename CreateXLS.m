@@ -1,5 +1,5 @@
 %# Prompt for creation
-val = 1
+clear all;
 promptMessage = sprintf('Do you wish to create a new file');
 titleBarCaption = 'Yes or No';
 numberOfUsers = 1;
@@ -28,12 +28,14 @@ if val == 2
         wb.SaveAs(fName,1);
         wb.Close(false);
 end
-
+answer = inputdlg('Enter number of trials:',...
+             'Sample', [1 50])
+         trials = str2num(answer{1})
 data=ones(10,4);      %Sample 2-dimensional data
-col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val', 'reactant_amount_unit', 'reactant_temp_unit', 'fuel_name', 'fuel_amount, fuel_temp', 'oxid_name', 'oxid_amount', 'oxid_temp', 'output'};     %Row cell array (for column labels)
+col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val', 'reactant_amount_unit','reactant_temp_unit','fuel_name','fuel_amount','fuel_temp', 'oxid_name', 'oxid_amount', 'oxid_temp', 'output'};     %Row cell array (for column labels)
 
 %row_header(1:10,1)={'Trial'};     %Column cell array (for row labels)
-for i = 1:10
+for i = 1: trials
     row_header(i,1) = {sprintf('%s_%d', 'trial', i)};
 end
 xlswrite('CEAdata.xls',col_header,'Sheet1','B1');     %Write column header
