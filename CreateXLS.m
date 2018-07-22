@@ -1,24 +1,43 @@
-%# output file name
-fName = fullfile(pwd, 'file.xls');
-
-%# create Excel COM Server
-Excel = actxserver('Excel.Application');
-Excel.Visible = false;
+%# Prompt for creation
+val = 1
+promptMessage = sprintf('Do you wish to create a new file');
+titleBarCaption = 'Yes or No';
+numberOfUsers = 1;
+buttonSelections = zeros(1, numberOfUsers); % Preallocate.
+for userNumber = 1 : numberOfUsers
+	button = questdlg(promptMessage, titleBarCaption, 'Yes', 'No', 'Yes');
+	if strcmpi(button, 'Yes')
+        val = 2;
+	end
+end
 
 %# delete existing file
-if exist(fName, 'file'), delete(fName); end
+if val == 2 
+        %# output file name
+        fName = fullfile(pwd, 'file.xls');
 
-%# create new XLS file
-wb = Excel.Workbooks.Add();
-wb.Sheets.Item(1).Activate();
+        %# create Excel COM Server
+        Excel = actxserver('Excel.Application');
+        Excel.Visible = true;
 
-%# save XLS file
-wb.SaveAs(fName,1);
-wb.Close(false);
+        if exist(fName, 'file'), delete(fName); end
+        %# create new XLS file
+        wb = Excel.Workbooks.Add();
+        wb.Sheets.Item(1).Activate();
+        %# save XLS file
+        wb.SaveAs(fName,1);
+        wb.Close(false);
+end
 
 data=ones(10,4);      %Sample 2-dimensional data
 col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val', 'reactant_amount_unit', 'reactant_temp_unit', 'fuel_name', 'fuel_amount, fuel_temp', 'oxid_name', 'oxid_amount', 'oxid_temp', 'output'};     %Row cell array (for column labels)
-xlswrite('file.xls',col_header,'Sheet1','A1');     %Write column header
+
+%row_header(1:10,1)={'Trial'};     %Column cell array (for row labels)
+for i = 1:10
+    row_header(i,1) = {sprintf('%s_%d', 'trial', i)};
+end
+xlswrite('file.xls',col_header,'Sheet1','B1');     %Write column header
+xlswrite('file.xls',row_header,'Sheet1','A2');      %Write row header
 
 %# close Excel
-Excel.Quit();
+%Excel.Quit();
