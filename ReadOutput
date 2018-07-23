@@ -21,7 +21,7 @@ for file = 1:N %for loop to cycle through all files
     line_read = textscan(fileID, formatSpec, 'delimiter', delimiter); %read the file as strings
     % T = cellstr(T);
     result = strsplit(line_read{1}{2});
-
+    header = strsplit(line_read{1}{1});
     %# output file name
     fName = fullfile(pwd, 'CEAdata.xls');
 
@@ -33,8 +33,10 @@ for file = 1:N %for loop to cycle through all files
 
     %row_header(1:10,1)={'Trial'};     %Column cell array (for row labels)
 
-    xlswrite('CEAdata.xls', result, 'Sheet2', sprintf('%s%d', 'A', file)); %Write column header
+    xlswrite('CEAdata.xls', result, 'Sheet2', sprintf('%s%d', 'B', (file + 1))); %Write column header
+    xlswrite('CEAdata.xls', file, 'Sheet2', sprintf('%s%d', 'A', (file + 1))); %Write column header
 end
+xlswrite('CEAdata.xls', header, 'Sheet2','A1'); %Write column header
 %# close Excel
 Excel.Quit();
 winopen('CEAdata.xls')
