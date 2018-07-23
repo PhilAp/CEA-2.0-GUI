@@ -12,3 +12,19 @@ for file = 1:N                         %for loop to cycle through all files
     else
         fullpath = [PathNames,FileNames{file}];    %define the path to file
     end
+    %formatSpec = '%s%s%s%[^\n\r]';              %for textscan
+   % delimiter = '\t';
+   % startRow = 1;                               %start of data
+   % endRow = inf;                               %end of data
+    %  fileID = fopen(fullpath,'r','UTF-8');   %open the file
+   % fileID = fopen(fullpath,'r');   %open the file
+   % line_read = textscan(fileID,formatSpec,'delimiter',delimiter); %read the file as strings
+   % T = readtable(fullpath);
+    % T = cellstr(T);
+   % T = table2cell(T) ;
+   % Linenum = 6;                                    %sets the line number
+   % name = line_read{1}{Linenum};                   %reads the line 6
+    %file_out = strcat(name,'.xlsx');
+    %xlswrite(file_out,T);
+    %fclose(fileID) ;
+end
