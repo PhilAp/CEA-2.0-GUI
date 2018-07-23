@@ -37,9 +37,15 @@ col_header={'problem_type','pressure_unit', 'pressure_val', 'temp_unit, temp_val
 %row_header(1:10,1)={'Trial'};     %Column cell array (for row labels)
 for i = 1: trials
     row_header(i,1) = {sprintf('%s_%d', 'trial', i)};
+    row_headerType(i,1)={sprintf('hp')}; 
+    row_headerPressure(i,1)={sprintf('bar')}; 
+    row_headerTemp(i,1)={sprintf('k')}; 
 end
 xlswrite('CEAdata.xls',col_header,'Sheet1','B1');     %Write column header
 xlswrite('CEAdata.xls',row_header,'Sheet1','A2');      %Write row header
+xlswrite('CEAdata.xls',row_headerType,'Sheet1','B2');      %Write row header
+xlswrite('CEAdata.xls',row_headerPressure,'Sheet1','C2');      %Write row header
+xlswrite('CEAdata.xls',row_headerTemp,'Sheet1','E2');      %Write row header
 %# close Excel
 Excel.Quit();
 winopen('CEAdata.xls')
